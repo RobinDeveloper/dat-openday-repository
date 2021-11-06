@@ -10,11 +10,12 @@ import java.util.Hashtable;
 public class SphereSketch extends PApplet {
 
     private PImage image;
-    private int offset = 10;
+    private int offset = 50;
     private int screenshotsTaken = 0;
 
     private float positionX;
-    private float intensity = 50;
+    private float intensity = 25;
+    private float speed = 100;
 
     private Hashtable<String, Integer> colourAtPixel;
 
@@ -25,8 +26,10 @@ public class SphereSketch extends PApplet {
 
     @Override
     public void setup() {
+        surface.setTitle("Sphere");
+
         colourAtPixel = new Hashtable<String, Integer>();
-        image = loadImage("../img/Background.png");
+        image = loadImage("../img/DinosaurdPileUp.jpg");
         image.resize(width, height);
         image.loadPixels();
         background(255);
@@ -47,6 +50,11 @@ public class SphereSketch extends PApplet {
 
     private void drawLines()
     {
+        if(positionX >= width - intensity)
+            speed = -10;
+        if(positionX <= 0 + intensity)
+            speed = 10;
+
         background(0);
         for (int x = 0; x < width / offset; x++) {
             for (int y = 0; y < height / offset; y++) {
@@ -58,14 +66,20 @@ public class SphereSketch extends PApplet {
                 if(dist <= 250)
                    line(x * offset, y * offset + random(0,15) / 2, x * offset, height);
                 else
-                    line(x * offset, y * offset + random(0,positionX) / 2, x * offset, height);
+                    line(x * offset, y * offset + random(0,500) / 2, x * offset, height);
             }
         };
+
+        fill(color(0,0,255));
+        textSize(64);
+        //textMode(CENTER);
+        text("DESIGN, ART, \nand TECHNOLOGY", 75, height/2);
+
+        positionX += speed;
     }
 
     @Override
     public void draw() {
-        positionX = mouseX;
         drawLines();
     }
 }

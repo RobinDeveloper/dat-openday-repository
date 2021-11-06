@@ -20,12 +20,14 @@ public class KineticGrid extends PApplet {
         image = loadImage("../img/Background.png");
         image.resize(width, height);
         image.loadPixels();
-
         image(image,0,0);
     }
 
     @Override
     public void draw() {
+
+        surface.setTitle("Kinetic");
+
         background(0,0,255);
 
         //image(image,0,0);
@@ -40,7 +42,7 @@ public class KineticGrid extends PApplet {
         int tilesX = 10;
         int tilesY = 10;
 
-        int tileW = (width/tilesX - mouseX + width); //invert this
+        int tileW = (width/tilesX - (int)sin(frameCount)); //invert this
         int tileH = (height/tilesY - 10);
 
         for (int x = 0; x < tilesX; x++) {
@@ -62,6 +64,7 @@ public class KineticGrid extends PApplet {
                 int destionationH = tileH;
 
                 copy(image, sourceX, sourceY, sourceW, sourceH, destionationX, destionationY, destionationW, destionationH);
+                //copy(image, destionationX, destionationY, destionationW, destionationH, sourceX, sourceY, sourceW, sourceH);
             }
         }
     }

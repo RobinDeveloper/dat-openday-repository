@@ -7,7 +7,6 @@ import processing.core.PImage;
 public class DrawingSketch extends PApplet {
     private PImage paintingToTransfer;
     private boolean drawStoke = true;
-
     private float intensity = 10;
 
     @Override
@@ -17,17 +16,21 @@ public class DrawingSketch extends PApplet {
 
     @Override
     public void setup() {
-        background(255);
         paintingToTransfer = loadImage("../img/Background.png");
         paintingToTransfer.resize(width,height);
         paintingToTransfer.loadPixels();
+
+        setupDrawingSketches();
+    }
+
+    private void setupDrawingSketches(){
+        background(255);
     }
 
     @Override
     public void draw() {
-        //takeScreenShot();
         if(drawStoke)
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 200; i++) {
                 translate((width/2) - (paintingToTransfer.width/2), (height/2) - (paintingToTransfer.height/2));
                 drawStroke();
             }
@@ -56,7 +59,7 @@ public class DrawingSketch extends PApplet {
 
         float lengthVariation = random(0.75f, 1.25f);
         //rect(0,0,lengthVariation,lengthVariation);
-        ellipse(0,0,lengthVariation * dist(mouseX, mouseX,width/2,width/2),lengthVariation + intensity);
+        ellipse(0,0,lengthVariation,lengthVariation);
         pop();
     }
 }
